@@ -7,8 +7,7 @@ const connectDatabase = () => {
   };
   mongoose
     .connect(process.env.DB_URI_LOCAL, options)
-    .then(() => console.log("Database connected"))
-    .catch((error) => console.error(error));
+    .then(() => console.log("Database connected"));
 };
 
 module.exports = connectDatabase;
