@@ -49,7 +49,7 @@ exports.getSingleOrder = catchAsyncError(async (req, res, next) => {
   });
 });
 
-//get logged in user order
+//get logged in user orders
 exports.myOrders = catchAsyncError(async (req, res, next) => {
   const orders = await Order.find({ user: req.user._id });
 
