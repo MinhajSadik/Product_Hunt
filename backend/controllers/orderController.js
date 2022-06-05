@@ -86,8 +86,16 @@ exports.updateOrder = catchAsyncError(async (req, res, next) => {
     return next(new ErrorHandler("You have already delivered this order", 400));
   }
 
-  order.orderItems.forEach(async (orderd) => {
-    await updateStock(orderd.product, orderd.quantity);
+  // order.orderItems.forEach(async (item) => {
+  //   Product.findById(item.product).then((product) => {
+  //     product.Stock = product.Stock - item.quantity;
+  //     product.save();
+  //   });
+  // });
+
+  //it getting order Stock -1
+  order.orderItems.forEach(async (odr) => {
+    await updateStock(odr.product, odr.quantity);
   });
 
   order.orderStatus = req.body.status;
@@ -97,18 +105,18 @@ exports.updateOrder = catchAsyncError(async (req, res, next) => {
   }
 
   await order.save({ validateBeforeSave: false });
+
   res.status(200).json({
     success: true,
   });
 });
 
-async function updateStock(productId, quantity) {
-  const product = await Product.findById(productId);
+async function updateStock(id, quantity) {
+  const product = await Product.findById(id);
   //stock -1 for each order
-  if (product.Stock === -1) {
-    return;
-  }
+
   product.Stock -= quantity;
+
   await product.save({ validateBeforeSave: false });
 }
 
