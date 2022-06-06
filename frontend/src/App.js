@@ -1,11 +1,23 @@
+import { useEffect } from "react";
 import { BrowserRouter as Router } from "react-router-dom";
+import WebFont from "webfontloader";
 import "./App.css";
-import Header from "./Components/Layout/Header";
+import Footer from "./Components/Layout/Footer/Footer";
+import Header from "./Components/Layout/Header/Header";
 
 function App() {
+  useEffect(() => {
+    WebFont.load({
+      google: {
+        families: ["Roboto", "Droid Sans", "Chilanka"],
+      },
+    });
+  }, []);
   return (
     <Router>
       <Header />
+
+      <Footer />
     </Router>
   );
 }
