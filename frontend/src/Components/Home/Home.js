@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { CgMouse } from "react-icons/all";
+import { useDispatch } from "react-redux";
+import { getProduct } from "../../actions/productAction";
 import MetaData from "../Layout/MetaData";
 import "./Home.css";
 import Product from "./Product";
@@ -12,6 +14,12 @@ const product = {
 };
 
 const Home = () => {
+  // const products = useSelector((state) => state.product.products);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getProduct());
+  }, [dispatch]);
+
   return (
     <>
       <MetaData title="Product_Hunt (Home Page)" />
