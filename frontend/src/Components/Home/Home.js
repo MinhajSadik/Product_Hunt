@@ -17,7 +17,7 @@ const Home = () => {
       <MetaData title="Product_Hunt (Home Page)" />
       <div className="banner">
         <p>Welcome to Product Hunt</p>
-        <h1>Find Amazing Products Below</h1>
+        <h1>FIND AMAZING PRODUCTS BELOW</h1>
         <a href="#container">
           <button>
             Scroll <CgMouse />
