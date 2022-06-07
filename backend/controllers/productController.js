@@ -103,7 +103,7 @@ exports.createProductReview = catchAsyncError(async (req, res, next) => {
     });
   } else {
     product.reviews.push(review);
-    product.numOfReviews = product.reviews.length;
+    product.numberOfReviews = product.reviews.length;
   }
 
   let avg = 0;

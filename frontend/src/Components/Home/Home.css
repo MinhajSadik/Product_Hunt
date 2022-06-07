@@ -1,6 +1,5 @@
 .banner {
-  /* background-image: url("../../images/cover.jfif"); */
-  background-color: blue;
+  background-image: url("../../images/cover.jfif");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -94,7 +93,7 @@
 }
 
 .productCardSpan {
-  margin: 0.5vmax;
+  /* margin: 0.5vmax; */
   font: 300 0.7vmax "Roboto";
 }
 
