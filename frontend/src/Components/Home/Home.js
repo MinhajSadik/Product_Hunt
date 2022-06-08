@@ -6,14 +6,12 @@ import { clearErrors, getProduct } from "../../actions/productAction";
 import Loader from "../Layout/Loader/Loader";
 import MetaData from "../Layout/MetaData";
 import "./Home.css";
-import Product from "./Product";
+import ProductCard from "./ProductCard";
 
 const Home = () => {
   const alert = useAlert();
   const dispatch = useDispatch();
-  const { products, loading, error, productsCount } = useSelector(
-    (state) => state.products
-  );
+  const { products, loading, error } = useSelector((state) => state.products);
 
   useEffect(() => {
     if (error) {
@@ -41,11 +39,10 @@ const Home = () => {
           </div>
 
           <div className="homeHeading">Featured Products</div>
-
           <div className="container" id="container">
             {products &&
               products.map((product) => (
-                <Product key={product._id} product={product} />
+                <ProductCard key={product._id} product={product} />
               ))}
           </div>
         </>
