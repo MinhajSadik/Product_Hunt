@@ -5,6 +5,7 @@ import "./App.css";
 import Home from "./Components/Home/Home";
 import Footer from "./Components/Layout/Footer/Footer";
 import Header from "./Components/Layout/Header/Header";
+import ProductDetails from "./Components/Product/ProductDetails";
 
 function App() {
   useEffect(() => {
@@ -18,6 +19,7 @@ function App() {
     <Router>
       <Header />
       <Route exact path="/" component={Home} />
+      <Route exact path="/product/:id" component={ProductDetails} />
 
       <Footer />
     </Router>
