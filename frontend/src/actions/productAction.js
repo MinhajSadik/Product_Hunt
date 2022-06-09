@@ -9,7 +9,7 @@ import {
   PRODUCT_DETAILS_SUCCESS,
 } from "../constants/productConstant";
 
-const Base_URL = "http://localhost:5000";
+// const Base_URL = "http://localhost:5000";
 
 export const getProduct =
   (keyword = "", currentPage = 1, price = [0, 2500], category, ratings = 0) =>
@@ -18,7 +18,8 @@ export const getProduct =
       dispatch({
         type: ALL_PRODUCT_REQUEST,
       });
-      let link = `${Base_URL}/api/v1/products?keyword=${keyword}&page=${currentPage}`;
+
+      let link = `/api/v1/products?keyword=${keyword}&page=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}`;
 
       const { data } = await axios.get(link);
       dispatch({
