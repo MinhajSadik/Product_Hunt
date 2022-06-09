@@ -11,6 +11,7 @@ import "./Products.css";
 
 const categories = [
   "Laptop",
+  "Shirt",
   "Footwear",
   "Bottom",
   "Tops",
@@ -20,19 +21,19 @@ const categories = [
 ];
 
 const Products = ({ match }) => {
-  const [currentPage, setCurrentPage] = React.useState(1);
+  const dispatch = useDispatch();
+  const [currentPage, setCurrentPage] = useState(1);
   const [price, setPrice] = useState([0, 2500]);
   const [ratings, setRatings] = useState(0);
-
   const [category, setCategory] = useState("");
-  const dispatch = useDispatch();
+
   const {
     products,
     loading,
     error,
     productsCount,
     resultPerPage,
-    filteredProductsCount,
+    // filteredProductsCount,
   } = useSelector((state) => state.products);
 
   const priceHandler = (event, newPrice) => {
@@ -45,19 +46,20 @@ const Products = ({ match }) => {
 
   useEffect(() => {
     if (error) {
+      alert.error(error);
       dispatch(clearErrors());
     }
     dispatch(getProduct(keyword, currentPage, price, ratings, category));
   }, [dispatch, error, keyword, currentPage, price, ratings, category]);
 
-  let count = filteredProductsCount;
+  let count = productsCount;
   return (
     <>
       {loading ? (
         <Loader />
       ) : (
         <>
-          <MetaData title="PRODUCTS -- Product_Hunt" />
+          <MetaData title="Product_Hunt -- Products" />
 
           <h2 className="productsHeading">Products</h2>
           <div className="products">

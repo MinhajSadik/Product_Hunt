@@ -12,7 +12,7 @@ import {
 // const Base_URL = "http://localhost:5000";
 
 export const getProduct =
-  (keyword = "", currentPage = 1, price = [0, 2500], category, ratings = 0) =>
+  (keyword = "", currentPage = 1, price = [0, 25000], category, ratings = 0) =>
   async (dispatch) => {
     try {
       dispatch({
@@ -20,6 +20,10 @@ export const getProduct =
       });
 
       let link = `/api/v1/products?keyword=${keyword}&page=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}`;
+
+      if (category) {
+        link = `/api/v1/products?keyword=${keyword}&page=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}&category=${category}&ratings[gte]=${ratings}`;
+      }
 
       const { data } = await axios.get(link);
       dispatch({
@@ -29,7 +33,7 @@ export const getProduct =
     } catch (error) {
       dispatch({
         type: ALL_PRODUCT_FAILURE,
-        payload: error.response.data.message,
+        payload: error.response.data,
       });
     }
   };
@@ -47,7 +51,7 @@ export const getProductDetails = (id) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: PRODUCT_DETAILS_FAILURE,
-      payload: error.response.data.message,
+      payload: error.response.data,
     });
   }
 };
