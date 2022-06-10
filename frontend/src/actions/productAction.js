@@ -12,7 +12,7 @@ import {
 // const Base_URL = "http://localhost:5000";
 
 export const getProduct =
-  (keyword = "", currentPage = 1, price = [0, 25000], category, ratings = 0) =>
+  (keyword = "", currentPage = 1, price = [0, 2500], category, ratings = 0) =>
   async (dispatch) => {
     try {
       dispatch({
