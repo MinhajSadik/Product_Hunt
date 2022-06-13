@@ -8,6 +8,7 @@ import Header from "./Components/Layout/Header/Header";
 import ProductDetails from "./Components/Product/ProductDetails";
 import Products from "./Components/Product/Products";
 import Search from "./Components/Product/Search";
+import LoginSignup from "./Components/User/LoginSignup";
 
 function App() {
   useEffect(() => {
@@ -25,7 +26,7 @@ function App() {
       <Route exact path="/products" component={Products} />
       <Route path="/products/:keyword" component={Products} />
       <Route exact path="/search" component={Search} />
-
+      <Route exact path="/login" component={LoginSignup} />
       <Footer />
     </Router>
   );
