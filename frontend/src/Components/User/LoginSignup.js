@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import FaceIcon from "@material-ui/icons/Face";
 import LockOpenIcon from "@material-ui/icons/LockOpen";
 import MailOutlineIcon from "@material-ui/icons/MailOutline";
