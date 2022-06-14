@@ -29,6 +29,10 @@ export const productReducer = (state = { products: [] }, action) => {
         error: null,
       };
     case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      };
     default:
       return state;
   }
@@ -52,6 +56,10 @@ export const productDetailsReducer = (state = { product: {} }, action) => {
         error: null,
       };
     case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      };
     default:
       return state;
   }

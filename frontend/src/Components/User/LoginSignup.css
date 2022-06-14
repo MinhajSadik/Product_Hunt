@@ -99,6 +99,8 @@
 
 #registerImage > img {
   width: 3vmax;
+  height: 3vmax;
+  margin-right: 1vmax;
   border-radius: 100%;
 }
 #registerImage > input {

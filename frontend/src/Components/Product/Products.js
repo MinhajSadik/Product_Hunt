@@ -1,6 +1,7 @@
 import Slider from "@material-ui/core/Slider";
 import Typography from "@material-ui/core/Typography";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import { useAlert } from "react-alert";
 import Pagination from "react-js-pagination";
 import { useDispatch, useSelector } from "react-redux";
 import { clearErrors, getProduct } from "../../actions/productAction";
@@ -21,6 +22,7 @@ const categories = [
 ];
 
 const Products = ({ match }) => {
+  const alert = useAlert();
   const dispatch = useDispatch();
   const [currentPage, setCurrentPage] = useState(1);
   const [price, setPrice] = useState([0, 2500]);
@@ -50,7 +52,7 @@ const Products = ({ match }) => {
       dispatch(clearErrors());
     }
     dispatch(getProduct(keyword, currentPage, price, ratings, category));
-  }, [dispatch, error, keyword, currentPage, price, ratings, category]);
+  }, [dispatch, error, keyword, currentPage, price, ratings, category, alert]);
 
   let count = productsCount;
   return (
