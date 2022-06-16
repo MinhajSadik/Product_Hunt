@@ -13,11 +13,12 @@ import Products from "./Components/Product/Products";
 import Search from "./Components/Product/Search";
 import LoginSignup from "./Components/User/LoginSignup";
 import Profile from "./Components/User/Profile";
+import store from "./store";
 
 function App() {
   const dispatch = useDispatch();
-  const token = JSON.parse(localStorage.getItem("token"));
   const { user, isAuthenticated } = useSelector((state) => state.user);
+
   useEffect(() => {
     WebFont.load({
       google: {
@@ -25,8 +26,8 @@ function App() {
       },
     });
 
-    dispatch(loadUser(token));
-  }, [dispatch, token]);
+    store.dispatch(loadUser());
+  }, [dispatch]);
   return (
     <Router>
       <Header />

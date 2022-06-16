@@ -5,7 +5,15 @@ const sendToken = (user, statusCode, res) => {
 
   res
     .status(statusCode)
-    .cookie("token", token, { options: 2 * 60 * 60 * 1000, httpOnly: true })
+    .cookie("token", token, {
+      options: {
+        expires: new Date(
+          Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000
+        ),
+      },
+
+      httpOnly: true,
+    })
     .json({
       success: true,
       user,

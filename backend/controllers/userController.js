@@ -5,6 +5,7 @@ const sendToken = require("../utils/jwtToken");
 const sendEmail = require("../utils/sendEmail");
 const crypto = require("crypto");
 const cloudinary = require("cloudinary");
+const jwt = require("jsonwebtoken");
 
 //Register a User
 exports.registerUser = catchAsyncError(async (req, res, next) => {
@@ -26,12 +27,23 @@ exports.registerUser = catchAsyncError(async (req, res, next) => {
     },
   });
 
-  sendToken(user, 201, res);
+  // sendToken(user, 201, res);
+  const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+    expiresIn: process.env.JWT_COOKIE_EXPIRES_IN,
+  });
+  res.status(201).json({
+    status: true,
+    token,
+    data: {
+      user,
+    },
+  });
 });
 
 //Login a User
 exports.loginUser = catchAsyncError(async (req, res, next) => {
   const { email, password } = req.body;
+
   //1. Check if email and password exist
   if (!email || !password) {
     return next(new ErrorHandler("Please provide email and password", 400));
@@ -39,13 +51,13 @@ exports.loginUser = catchAsyncError(async (req, res, next) => {
   //2. Check if user exists && password is correct
   const user = await User.findOne({ email }).select("+password");
   if (!user) {
-    return next(new ErrorHandler("Invalid Credentials", 401));
+    return next(new ErrorHandler("User doesn't exist", 401));
   }
 
   //3. Check if password is correct
   const isPasswordMatch = await user.comparePassword(password);
   if (!isPasswordMatch) {
-    return next(new ErrorHandler("Invalid Credentials", 401));
+    return next(new ErrorHandler("Password is not matched", 401));
   }
 
   //4. If everything is ok, send token to client
