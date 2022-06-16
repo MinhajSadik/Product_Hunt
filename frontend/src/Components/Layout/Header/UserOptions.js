@@ -1,3 +1,4 @@
+import Backdrop from "@material-ui/core/Backdrop";
 import DashboardIcon from "@material-ui/icons/Dashboard";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import ListAltIcon from "@material-ui/icons/ListAlt";
@@ -61,6 +62,8 @@ const UserOptions = ({ user }) => {
   }
   return (
     <>
+      <Backdrop open={open} style={{ zIndex: "10" }} />
+
       <SpeedDial
         ariaLabel="SpeedDial tooltip example"
         onClose={() => setOpen(false)}

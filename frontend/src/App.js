@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import WebFont from "webfontloader";
 import { loadUser } from "./actions/userAction";
@@ -12,9 +12,11 @@ import ProductDetails from "./Components/Product/ProductDetails";
 import Products from "./Components/Product/Products";
 import Search from "./Components/Product/Search";
 import LoginSignup from "./Components/User/LoginSignup";
-import store from "./store";
+import Profile from "./Components/User/Profile";
 
 function App() {
+  const dispatch = useDispatch();
+  const token = JSON.parse(localStorage.getItem("token"));
   const { user, isAuthenticated } = useSelector((state) => state.user);
   useEffect(() => {
     WebFont.load({
@@ -23,8 +25,8 @@ function App() {
       },
     });
 
-    store.dispatch(loadUser());
-  }, []);
+    dispatch(loadUser(token));
+  }, [dispatch, token]);
   return (
     <Router>
       <Header />
@@ -34,6 +36,7 @@ function App() {
       <Route exact path="/products" component={Products} />
       <Route path="/products/:keyword" component={Products} />
       <Route exact path="/search" component={Search} />
+      <Route exact path="/account" component={Profile} />
       <Route exact path="/login" component={LoginSignup} />
       <Footer />
     </Router>
