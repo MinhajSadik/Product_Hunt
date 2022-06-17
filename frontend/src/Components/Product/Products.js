@@ -52,6 +52,7 @@ const Products = ({ match }) => {
       dispatch(clearErrors());
     }
     dispatch(getProduct(keyword, currentPage, price, ratings, category));
+    // dispatch(getProducts(keyword, currentPage, price, ratings, category));
   }, [dispatch, error, keyword, currentPage, price, ratings, category, alert]);
 
   let count = productsCount;

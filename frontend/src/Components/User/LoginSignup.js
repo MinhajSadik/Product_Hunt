@@ -6,6 +6,7 @@ import { useAlert } from "react-alert";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { clearErrors, login, register } from "../../actions/userAction";
+// import { login, register } from "../../redux/features/userSlice";
 import Loader from "../Layout/Loader/Loader";
 import "./LoginSignup.css";
 
