@@ -26,9 +26,9 @@ function App() {
         families: ["Roboto", "Droid Sans", "Chilanka"],
       },
     });
-
     store.dispatch(loadUser());
-  }, [dispatch, user]);
+  }, [dispatch]);
+
   return (
     <Router>
       <Header />
