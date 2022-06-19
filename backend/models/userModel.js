@@ -56,15 +56,14 @@ userSchema.pre("save", async function (next) {
 
 //JWT Token
 userSchema.methods.generateToken = function () {
-  const token = jwt.sign({ id: this._id }, process.env.JWT_SECRET, {
+  return jwt.sign({ id: this._id }, process.env.JWT_SECRET, {
     expiresIn: process.env.JWT_EXPIRE,
   });
-  return token;
 };
 
 //Password Compare
-userSchema.methods.comparePassword = async function (candidatePassword) {
-  return await bcrypt.compare(candidatePassword, this.password);
+userSchema.methods.comparePassword = async function (password) {
+  return await bcrypt.compare(password, this.password);
 };
 
 //Reset Password
