@@ -5,7 +5,8 @@ import { Fragment, useEffect, useRef, useState } from "react";
 import { useAlert } from "react-alert";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { clearErrors, login, register } from "../../actions/userAction";
+import { clearErrors } from "../../actions/userAction";
+import { login, register } from "../../redux/features/userSlice";
 // import { login, register } from "../../redux/features/userSlice";
 import Loader from "../Layout/Loader/Loader";
 import "./LoginSignup.css";
@@ -38,7 +39,11 @@ const LoginSignUp = ({ history, location }) => {
 
   const loginSubmit = (e) => {
     e.preventDefault();
-    dispatch(login(loginEmail, loginPassword));
+    const formData = {
+      email: loginEmail,
+      password: loginPassword,
+    };
+    dispatch(login({ formData }));
   };
 
   const registerSubmit = (e) => {
@@ -50,7 +55,7 @@ const LoginSignUp = ({ history, location }) => {
     myForm.set("email", email);
     myForm.set("password", password);
     myForm.set("avatar", avatar);
-    dispatch(register(myForm));
+    dispatch(register({ myForm }));
   };
 
   const registerDataChange = (e) => {

@@ -3,9 +3,9 @@ import * as api from "./../api";
 
 export const login = createAsyncThunk(
   "user/login",
-  async ({ email, password }, { rejectWithValue }) => {
+  async ({ formData }, { rejectWithValue }) => {
     try {
-      const response = await api.login(email, password);
+      const response = await api.login(formData);
       return response.data;
     } catch (error) {
       console.error(error.message);
@@ -56,6 +56,18 @@ const userSlice = createSlice({
       state.isAuthenticated = true;
     },
     [login.rejected]: (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    },
+    [register.pending]: (state, action) => {
+      state.loading = true;
+    },
+    [register.fulfilled]: (state, action) => {
+      state.loading = false;
+      state.user = action.payload;
+      state.isAuthenticated = true;
+    },
+    [register.rejected]: (state, action) => {
       state.loading = false;
       state.error = action.payload;
     },

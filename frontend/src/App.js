@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import WebFont from "webfontloader";
-import { loadUser } from "./actions/userAction";
 import "./App.css";
 import Home from "./Components/Home/Home";
 import Footer from "./Components/Layout/Footer/Footer";
@@ -14,20 +13,21 @@ import Search from "./Components/Product/Search";
 import ProtectedRoute from "./Components/Route/ProtectedRoute";
 import LoginSignup from "./Components/User/LoginSignup";
 import Profile from "./Components/User/Profile";
+import { setUser } from "./redux/features/userSlice";
 import store from "./store";
 
 function App() {
   const dispatch = useDispatch();
   const { user, isAuthenticated } = useSelector((state) => state.user);
-
+  const users = localStorage.getItem("user");
   useEffect(() => {
     WebFont.load({
       google: {
         families: ["Roboto", "Droid Sans", "Chilanka"],
       },
     });
-    store.dispatch(loadUser());
-  }, [dispatch]);
+    store.dispatch(setUser(users));
+  }, [dispatch, users]);
 
   return (
     <Router>

@@ -2,7 +2,7 @@ import { ReactNavbar } from "overlay-navbar";
 import logo from "../../../images/product_hunt.png";
 
 const options = {
-  burgerColorHover: "#eb4034",
+  burgerColor: "#eb4034",
   logo,
   logoWidth: "20vmax",
   navColor1: "white",
