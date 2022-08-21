@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useAlert } from "react-alert";
 import Pagination from "react-js-pagination";
 import { useDispatch, useSelector } from "react-redux";
-import { clearErrors, getProduct } from "../../actions/productAction";
+// import { clearErrors, getProduct } from "../../actions/productAction";
 import ProductCard from "../Home/ProductCard";
 import Loader from "../Layout/Loader/Loader";
 import MetaData from "../Layout/MetaData";
@@ -49,9 +49,9 @@ const Products = ({ match }) => {
   useEffect(() => {
     if (error) {
       alert.error(error);
-      dispatch(clearErrors());
+      // dispatch(clearErrors());
     }
-    dispatch(getProduct(keyword, currentPage, price, ratings, category));
+    // dispatch(getProduct(keyword, currentPage, price, ratings, category));
     // dispatch(getProducts(keyword, currentPage, price, ratings, category));
   }, [dispatch, error, keyword, currentPage, price, ratings, category, alert]);
 

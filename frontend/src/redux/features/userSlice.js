@@ -3,7 +3,7 @@ import * as api from "./../api";
 
 export const login = createAsyncThunk(
   "user/login",
-  async ({ formData }, { rejectWithValue }) => {
+  async (formData, { rejectWithValue }) => {
     try {
       const response = await api.login(formData);
       return response.data;
@@ -16,7 +16,7 @@ export const login = createAsyncThunk(
 
 export const register = createAsyncThunk(
   "user/register",
-  async ({ formValue }, { rejectWithValue }) => {
+  async (formValue, { rejectWithValue }) => {
     try {
       const response = await api.register(formValue);
       return response.data;
@@ -38,38 +38,40 @@ const userSlice = createSlice({
   reducers: {
     setUser: (state, action) => {
       state.user = action.payload;
-      state.isAuthenticated = false;
+      state.isAuthenticated = true;
     },
-    setLogout: (state, action) => {
+    setLogout: (state) => {
       state.user = null;
       state.isAuthenticated = false;
+      localStorage.removeItem("token");
     },
   },
 
   extraReducers: {
-    [login.pending]: (state, action) => {
+    [login.pending]: (state) => {
       state.loading = true;
     },
-    [login.fulfilled]: (state, action) => {
+    [login.fulfilled]: (state, { payload }) => {
       state.loading = false;
-      state.user = action.payload;
       state.isAuthenticated = true;
+      state.user = payload;
+      localStorage.setItem("token", JSON.stringify({ ...payload }));
     },
-    [login.rejected]: (state, action) => {
+    [login.rejected]: (state, { payload }) => {
       state.loading = false;
-      state.error = action.payload;
+      state.error = payload;
     },
-    [register.pending]: (state, action) => {
+    [register.pending]: (state) => {
       state.loading = true;
     },
-    [register.fulfilled]: (state, action) => {
+    [register.fulfilled]: (state, { payload }) => {
       state.loading = false;
-      state.user = action.payload;
+      state.user = payload;
       state.isAuthenticated = true;
     },
-    [register.rejected]: (state, action) => {
+    [register.rejected]: (state, { payload }) => {
       state.loading = false;
-      state.error = action.payload;
+      state.error = payload;
     },
   },
 });

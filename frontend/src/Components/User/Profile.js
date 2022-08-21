@@ -7,8 +7,10 @@ import MetaData from "../Layout/MetaData";
 import "./Profile.css";
 
 const Profile = ({ history }) => {
-  const { user, loading, isAuthenticated } = useSelector((state) => state.user);
-  console.log(user);
+  const { user, loading, isAuthenticated } = useSelector((state) => ({
+    ...state.user,
+  }));
+  console.log("profile", user);
   useEffect(() => {
     if (isAuthenticated === false) {
       history.push("/login");
@@ -20,11 +22,11 @@ const Profile = ({ history }) => {
         <Loader />
       ) : (
         <>
-          <MetaData title={`${user.user.name}'s Profile`} />
+          <MetaData title={`${user?.user?.name}'s Profile`} />
           <div className="profileContainer">
             <div>
               <h1>My Profile</h1>
-              <img src={user?.user.avatar?.url} alt={user.user.name} />
+              <img src={user.user?.avatar?.url} alt={user?.user?.name} />
               <Link to="/me/update">Edit Profile</Link>
             </div>
             <div>

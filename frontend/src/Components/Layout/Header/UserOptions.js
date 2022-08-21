@@ -7,13 +7,14 @@ import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import { SpeedDial, SpeedDialAction } from "@material-ui/lab";
 import { useState } from "react";
 import { useAlert } from "react-alert";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { logout } from "../../../actions/userAction";
+import { setLogout } from "../../../redux/features/userSlice";
+// import { logout } from "../../../actions/userAction";
 import "./Header.css";
 
-const UserOptions = ({ user }) => {
-  //   const { cartItems } = useSelector((state) => state.cart);
+const UserOptions = () => {
+  const { user } = useSelector((state) => state.user);
   const alert = useAlert();
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
@@ -30,12 +31,13 @@ const UserOptions = ({ user }) => {
         />
       ),
       //   name: `Cart(${cartItems.length})`,
+      name: "Cart",
       func: cart,
     },
     { icon: <ExitToAppIcon />, name: "Logout", func: logoutUser },
   ];
 
-  if (user.role === "admin") {
+  if (user?.user?.role === "admin") {
     options.unshift({
       icon: <DashboardIcon />,
       name: "Dashboard",
@@ -57,7 +59,7 @@ const UserOptions = ({ user }) => {
     history.push("/cart");
   }
   function logoutUser() {
-    dispatch(logout());
+    dispatch(setLogout());
     alert.success("Logout Successfully");
   }
   return (
@@ -75,7 +77,9 @@ const UserOptions = ({ user }) => {
         icon={
           <img
             className="speedDialIcon"
-            src={user.avatar?.url ? user.avatar?.url : "/Profile.png"}
+            src={
+              user?.user?.avatar?.url ? user?.user?.avatar?.url : "/Profile.png"
+            }
             alt="Profile"
           />
         }

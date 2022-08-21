@@ -10,7 +10,7 @@ import { useAlert } from "react-alert";
 // } from "@material-ui/core";
 import Carousel from "react-material-ui-carousel";
 import { useDispatch, useSelector } from "react-redux";
-import { clearErrors, getProductDetails } from "../../actions/productAction";
+// import { clearErrors, getProductDetails } from "../../actions/productAction";
 import Loader from "../Layout/Loader/Loader";
 import "./ProductDetails.css";
 import ReviewCard from "./ReviewCard";
@@ -39,9 +39,9 @@ const ProductDetails = ({ match }) => {
   useEffect(() => {
     if (error) {
       alert.error(error);
-      dispatch(clearErrors());
+      // dispatch(clearErrors());
     }
-    dispatch(getProductDetails(match.params.id));
+    // dispatch(getProductDetails(match.params.id));
   }, [dispatch, match.params.id, error, alert]);
 
   return (

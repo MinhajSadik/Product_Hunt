@@ -61,7 +61,18 @@ exports.loginUser = catchAsyncError(async (req, res, next) => {
   }
 
   //4. If everything is ok, send token to client
-  sendToken(user, 200, res);
+  const token = jwt.sign(
+    { id: user._id, email: user.email },
+    process.env.JWT_SECRET,
+    {
+      expiresIn: process.env.JWT_COOKIE_EXPIRES_IN,
+    }
+  );
+  res.status(200).json({
+    status: true,
+    token,
+    user,
+  });
 });
 
 //User Logout

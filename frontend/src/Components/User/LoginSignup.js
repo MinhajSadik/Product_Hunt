@@ -5,7 +5,6 @@ import { Fragment, useEffect, useRef, useState } from "react";
 import { useAlert } from "react-alert";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { clearErrors } from "../../actions/userAction";
 import { login, register } from "../../redux/features/userSlice";
 // import { login, register } from "../../redux/features/userSlice";
 import Loader from "../Layout/Loader/Loader";
@@ -43,19 +42,19 @@ const LoginSignUp = ({ history, location }) => {
       email: loginEmail,
       password: loginPassword,
     };
-    dispatch(login({ formData }));
+    dispatch(login(formData));
   };
 
   const registerSubmit = (e) => {
     e.preventDefault();
 
-    const myForm = new FormData();
+    const formValue = new FormData();
 
-    myForm.set("name", name);
-    myForm.set("email", email);
-    myForm.set("password", password);
-    myForm.set("avatar", avatar);
-    dispatch(register({ myForm }));
+    formValue.set("name", name);
+    formValue.set("email", email);
+    formValue.set("password", password);
+    formValue.set("avatar", avatar);
+    dispatch(register(formValue));
   };
 
   const registerDataChange = (e) => {
@@ -80,7 +79,7 @@ const LoginSignUp = ({ history, location }) => {
   useEffect(() => {
     if (error) {
       alert.error(error);
-      dispatch(clearErrors());
+      // dispatch(clearErrors());
     }
 
     if (isAuthenticated) {

@@ -14,20 +14,25 @@ import ProtectedRoute from "./Components/Route/ProtectedRoute";
 import LoginSignup from "./Components/User/LoginSignup";
 import Profile from "./Components/User/Profile";
 import { setUser } from "./redux/features/userSlice";
-import store from "./store";
 
 function App() {
   const dispatch = useDispatch();
-  const { user, isAuthenticated } = useSelector((state) => state.user);
-  const users = localStorage.getItem("user");
+  const { user, isAuthenticated } = useSelector((state) => ({ ...state.user }));
+  console.log(user);
+  const userToken = JSON.parse(localStorage.getItem("token"));
+
   useEffect(() => {
+    if (userToken) {
+      dispatch(setUser(userToken));
+    }
     WebFont.load({
       google: {
         families: ["Roboto", "Droid Sans", "Chilanka"],
       },
     });
-    store.dispatch(setUser(users));
-  }, [dispatch, users]);
+  }, [dispatch]);
+
+  // useEffect(() => {}, []);
 
   return (
     <Router>
