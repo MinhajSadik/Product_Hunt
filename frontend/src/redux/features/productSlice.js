@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { axios } from "axios";
+import * as api from "./../api";
 
-const Base_Url = "http://localhost:5000";
+// const Base_Url = "http://localhost:5000";
 
 export const getProducts = createAsyncThunk(
   "product/getProducts",
@@ -10,12 +10,12 @@ export const getProducts = createAsyncThunk(
     { rejectWithValue }
   ) => {
     try {
-      let link = `${Base_Url}/api/v1/products?keyword=${keyword}&page=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}`;
+      let link = `?keyword=${keyword}&page=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}`;
       if (category) {
-        link = `${Base_Url}/api/v1/products?keyword=${keyword}&page=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}&category=${category}&ratings[gte]=${ratings}`;
+        link = `?keyword=${keyword}&page=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}&category=${category}&ratings[gte]=${ratings}`;
       }
-      const { data } = await axios.get(link);
-      console.log(data);
+      const { data } = await api.getProducts(link);
+      // console.log("data", data);
       return data;
     } catch (error) {
       console.error(error.message);
@@ -30,6 +30,7 @@ const productSlice = createSlice({
     loading: false,
     products: [],
     error: "",
+    productDetails: [],
   },
   reducers: {
     setProducts: (state, action) => {
@@ -37,12 +38,12 @@ const productSlice = createSlice({
     },
   },
   extraReducers: {
-    [getProducts.pending]: (state, action) => {
+    [getProducts.pending]: (state) => {
       state.loading = true;
     },
-    [getProducts.fulfilled]: (state, action) => {
+    [getProducts.fulfilled]: (state, { payload }) => {
       state.loading = false;
-      state.products = action.payload;
+      state.products = payload;
     },
     [getProducts.rejected]: (state, action) => {
       state.loading = false;

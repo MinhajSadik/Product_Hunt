@@ -9,11 +9,11 @@ API.interceptors.request.use((req) => {
       JSON.parse(localStorage.getItem("token")).token
     }`;
   }
-  console.log("config", req.headers.Authorization);
+  // console.log("config", req.headers.Authorization);
   return req;
 });
 
 export const login = (formData) => API.post(`/api/v1/login`, formData);
 export const register = (formData) => API.post(`/api/v1/register`, formData);
 
-// export const getProducts = () => API.get(`/api/v1/products`);
+export const getProducts = (link) => API.get(`/api/v1/products/${link}`);

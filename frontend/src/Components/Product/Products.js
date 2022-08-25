@@ -5,6 +5,7 @@ import { useAlert } from "react-alert";
 import Pagination from "react-js-pagination";
 import { useDispatch, useSelector } from "react-redux";
 // import { clearErrors, getProduct } from "../../actions/productAction";
+import { getProducts } from "../../redux/features/productSlice";
 import ProductCard from "../Home/ProductCard";
 import Loader from "../Layout/Loader/Loader";
 import MetaData from "../Layout/MetaData";
@@ -36,7 +37,9 @@ const Products = ({ match }) => {
     productsCount,
     resultPerPage,
     // filteredProductsCount,
-  } = useSelector((state) => state.products);
+  } = useSelector((state) => ({ ...state.products }));
+
+  console.log("products", products);
 
   const priceHandler = (event, newPrice) => {
     setPrice(newPrice);
@@ -52,7 +55,7 @@ const Products = ({ match }) => {
       // dispatch(clearErrors());
     }
     // dispatch(getProduct(keyword, currentPage, price, ratings, category));
-    // dispatch(getProducts(keyword, currentPage, price, ratings, category));
+    dispatch(getProducts({ keyword, currentPage, price, ratings, category }));
   }, [dispatch, error, keyword, currentPage, price, ratings, category, alert]);
 
   let count = productsCount;
@@ -67,7 +70,7 @@ const Products = ({ match }) => {
           <h2 className="productsHeading">Products</h2>
           <div className="products">
             {products &&
-              products.map((product) => (
+              products?.map((product) => (
                 <ProductCard key={product._id} product={product} />
               ))}
           </div>
