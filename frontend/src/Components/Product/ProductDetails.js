@@ -10,7 +10,7 @@ import { useAlert } from "react-alert";
 // } from "@material-ui/core";
 import Carousel from "react-material-ui-carousel";
 import { useDispatch, useSelector } from "react-redux";
-// import { clearErrors, getProductDetails } from "../../actions/productAction";
+import { getProductDetails } from "../../redux/features/productSlice";
 import Loader from "../Layout/Loader/Loader";
 import "./ProductDetails.css";
 import ReviewCard from "./ReviewCard";
@@ -20,13 +20,15 @@ const ProductDetails = ({ match }) => {
   const alert = useAlert();
   const [quantity, setQuantity] = useState(1);
 
-  const { product, loading, error } = useSelector(
-    (state) => state.productDetails
+  const { productDetails, loading, error } = useSelector(
+    (state) => state.products
   );
+
+  // console.log("productDetails", productDetails.product);
 
   const options = {
     size: "large",
-    value: product?.ratings,
+    value: productDetails?.ratings,
     readOnly: true,
     precision: 0.5,
   };
@@ -41,7 +43,7 @@ const ProductDetails = ({ match }) => {
       alert.error(error);
       // dispatch(clearErrors());
     }
-    // dispatch(getProductDetails(match.params.id));
+    dispatch(getProductDetails(match.params.id));
   }, [dispatch, match.params.id, error, alert]);
 
   return (
@@ -53,8 +55,8 @@ const ProductDetails = ({ match }) => {
           <div className="ProductDetails">
             <div>
               <Carousel>
-                {product.images &&
-                  product.images.map((item, i) => (
+                {productDetails?.images &&
+                  productDetails?.images.map((item, i) => (
                     <img
                       className="CarouselImage"
                       key={i}
@@ -65,18 +67,18 @@ const ProductDetails = ({ match }) => {
               </Carousel>
             </div>
             <div className="detailsBlock-1">
-              <h2>{product.name}</h2>
-              <p>Product # {product._id}</p>
+              <h2>{productDetails?.name}</h2>
+              <p>Product # {productDetails?._id}</p>
             </div>
             <div className="detailsBlock-2">
               <Rating {...options} />
               <span className="detailsBlock-2-span">
                 {" "}
-                ({product.numberOfReviews} Reviews)
+                ({productDetails?.numberOfReviews} Reviews)
               </span>
             </div>
             <div className="detailsBlock-3">
-              <h1>{`₹${product.price}`}</h1>
+              <h1>{`₹${productDetails?.price}`}</h1>
               <div className="detailsBlock-3-1">
                 <div className="detailsBlock-3-1-1">
                   <button onClick={decreaseQuantity}>-</button>
@@ -84,7 +86,7 @@ const ProductDetails = ({ match }) => {
                   <button onClick={increaseQuantity}>+</button>
                 </div>
                 <button
-                  disabled={product.Stock < 1 ? true : false}
+                  disabled={productDetails?.Stock < 1 ? true : false}
                   onClick={addToCartHandler}
                 >
                   Add to Cart
@@ -92,13 +94,19 @@ const ProductDetails = ({ match }) => {
               </div>
               <p>
                 Status:
-                <b className={product.Stock < 1 ? "redColor" : "greenColor"}>
-                  {product.Stock < 1 ? "OutOfStock" : "InStock"}
+                <b
+                  className={
+                    productDetails.product?.Stock < 1
+                      ? "redColor"
+                      : "greenColor"
+                  }
+                >
+                  {productDetails?.Stock < 1 ? "OutOfStock" : "InStock"}
                 </b>
               </p>
 
               <div className="detailsBlock-4">
-                Description : <p>{product.description}</p>
+                Description : <p>{productDetails?.description}</p>
               </div>
 
               <button onClick={submitReviewToggle} className="submitReview">
@@ -138,10 +146,10 @@ const ProductDetails = ({ match }) => {
         </DialogActions>
       </Dialog> */}
 
-          {product.reviews && product.reviews[0] ? (
+          {productDetails?.reviews && productDetails?.reviews[0] ? (
             <div className="reviews">
-              {product.reviews &&
-                product.reviews.map((review) => (
+              {productDetails?.reviews &&
+                productDetails?.reviews.map((review) => (
                   <ReviewCard key={review._id} review={review} />
                 ))}
             </div>

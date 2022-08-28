@@ -3,14 +3,16 @@ import { useAlert } from "react-alert";
 import { CgMouse } from "react-icons/all";
 import { useDispatch, useSelector } from "react-redux";
 // import { clearErrors, getProduct } from "../../actions/productAction";
+import { getProducts } from "../../redux/features/productSlice";
 import Loader from "../Layout/Loader/Loader";
 import MetaData from "../Layout/MetaData";
 import "./Home.css";
 import ProductCard from "./ProductCard";
 
-const Home = () => {
+const Home = ({ match }) => {
   const alert = useAlert();
   const dispatch = useDispatch();
+
   const { products, loading, error } = useSelector((state) => ({
     ...state.products,
   }));
@@ -18,9 +20,8 @@ const Home = () => {
   useEffect(() => {
     if (error) {
       alert.error(error);
-      // dispatch(clearErrors());
     }
-    // dispatch(getProduct());
+    dispatch(getProducts({}));
   }, [alert, dispatch, error]);
 
   return (
@@ -39,7 +40,6 @@ const Home = () => {
               </button>
             </a>
           </div>
-
           <div className="homeHeading">Featured Products</div>
           <div className="container" id="container">
             {products &&

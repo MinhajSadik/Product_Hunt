@@ -17,3 +17,5 @@ export const login = (formData) => API.post(`/api/v1/login`, formData);
 export const register = (formData) => API.post(`/api/v1/register`, formData);
 
 export const getProducts = (link) => API.get(`/api/v1/products/${link}`);
+
+export const getProductDetails = (id) => API.get(`/api/v1/product/${id}`);
