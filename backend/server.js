@@ -21,8 +21,8 @@ cloudinary.config({
 
 const PORT = process.env.PORT || 5000;
 
-app.get("/", (req, res) => {
-  res.send("Hello World");
+app.all("/", (req, res) => {
+  res.send("Product Hunt API Viewers");
 });
 
 const server = app.listen(PORT, () => {
