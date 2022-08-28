@@ -16,11 +16,9 @@ import Profile from "./Components/User/Profile";
 import { setUser } from "./redux/features/userSlice";
 
 function App() {
-  fetch("https://product-hunt-api.vercel.app/api/v1/products")
-    .then((res) => res.json())
-    .then((data) => console.log(data));
   const dispatch = useDispatch();
   const { user, isAuthenticated } = useSelector((state) => ({ ...state.user }));
+  // console.log(user);
   const userToken = JSON.parse(localStorage.getItem("token"));
 
   useEffect(() => {
