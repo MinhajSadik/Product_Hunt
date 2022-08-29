@@ -7,15 +7,15 @@ import MetaData from "../Layout/MetaData";
 import "./Profile.css";
 
 const Profile = ({ history }) => {
-  const { user, loading, isAuthenticated } = useSelector((state) => ({
+  const { user, loading, isLoggedIn } = useSelector((state) => ({
     ...state.user,
   }));
   console.log("profile", user);
   useEffect(() => {
-    if (isAuthenticated === false) {
+    if (isLoggedIn === false) {
       history.push("/login");
     }
-  }, [history, isAuthenticated]);
+  }, [history, isLoggedIn]);
   return (
     <>
       {loading ? (
@@ -27,20 +27,20 @@ const Profile = ({ history }) => {
             <div>
               <h1>My Profile</h1>
               <img src={user.user?.avatar?.url} alt={user?.user?.name} />
-              <Link to="/me/update">Edit Profile</Link>
+              <Link to="/profile/update">Edit Profile</Link>
             </div>
             <div>
               <div>
                 <h4>Full Name</h4>
-                <p>{user.user.name}</p>
+                <p>{user.user?.name}</p>
               </div>
               <div>
                 <h4>Email</h4>
-                <p>{user.user.email}</p>
+                <p>{user.user?.email}</p>
               </div>
               <div>
                 <h4>Joined On</h4>
-                <p>{String(user.user.createdAt).substr(0, 10)}</p>
+                <p>{String(user.user?.createdAt).substr(0, 10)}</p>
               </div>
 
               <div>

@@ -13,11 +13,12 @@ import Search from "./Components/Product/Search";
 import ProtectedRoute from "./Components/Route/ProtectedRoute";
 import LoginSignup from "./Components/User/LoginSignup";
 import Profile from "./Components/User/Profile";
+import UpdateProfile from "./Components/User/UpdateProfile";
 import { setUser } from "./redux/features/userSlice";
 
 function App() {
   const dispatch = useDispatch();
-  const { user, isAuthenticated } = useSelector((state) => ({ ...state.user }));
+  const { user, isLoggedIn } = useSelector((state) => ({ ...state.user }));
   // console.log(user);
   const userToken = JSON.parse(localStorage.getItem("token"));
 
@@ -38,13 +39,14 @@ function App() {
   return (
     <Router>
       <Header />
-      {isAuthenticated && <UserOptions user={user} />}
+      {isLoggedIn && <UserOptions user={user} />}
       <Route exact path="/" component={Home} />
       <Route exact path="/product/:id" component={ProductDetails} />
       <Route exact path="/products" component={Products} />
       <Route path="/products/:keyword" component={Products} />
       <Route exact path="/search" component={Search} />
       <ProtectedRoute exact path="/account" component={Profile} />
+      <Route exact path="/profile/update" component={UpdateProfile} />
       <Route exact path="/login" component={LoginSignup} />
       <Footer />
     </Router>

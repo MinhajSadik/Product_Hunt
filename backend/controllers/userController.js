@@ -34,9 +34,7 @@ exports.registerUser = catchAsyncError(async (req, res, next) => {
   res.status(201).json({
     status: true,
     token,
-    data: {
-      user,
-    },
+    user,
   });
 });
 
@@ -188,13 +186,33 @@ exports.updateUserPassword = catchAsyncError(async (req, res, next) => {
 
 //Update user Profile
 exports.updateUserProfile = catchAsyncError(async (req, res, next) => {
+  const { id } = req.params;
   const newUserData = {
     name: req.body.name,
     email: req.body.email,
   };
 
   //we will add caloudinary image upload later
-  const user = await User.findByIdAndUpdate(req.user.id, newUserData, {
+  if (req.body.avatar !== "") {
+    const user = await User.findById(req.user.id);
+
+    const imageId = user.avatar.public_id;
+
+    await cloudinary.v2.uploader.destroy(imageId);
+
+    const myCloud = await cloudinary.v2.uploader.upload(req.body.avatar, {
+      folder: "avatars",
+      width: 150,
+      crop: "scale",
+    });
+
+    newUserData.avatar = {
+      public_id: myCloud.public_id,
+      url: myCloud.secure_url,
+    };
+  }
+
+  const user = await User.findByIdAndUpdate(req.user._id, newUserData, {
     new: true,
     runValidators: true,
     useFindAndModify: false,
@@ -202,6 +220,7 @@ exports.updateUserProfile = catchAsyncError(async (req, res, next) => {
 
   res.status(200).json({
     success: true,
+    user,
   });
 });
 

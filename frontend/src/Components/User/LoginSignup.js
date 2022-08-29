@@ -14,9 +14,9 @@ const LoginSignUp = ({ history, location }) => {
   const dispatch = useDispatch();
   const alert = useAlert();
 
-  const { error, loading, isAuthenticated } = useSelector(
-    (state) => state.user
-  );
+  const { error, loading, isLoggedIn } = useSelector((state) => state.user);
+
+  // console.log(error);
 
   const loginTab = useRef(null);
   const registerTab = useRef(null);
@@ -78,14 +78,13 @@ const LoginSignUp = ({ history, location }) => {
 
   useEffect(() => {
     if (error) {
-      alert.error(error);
-      // dispatch(clearErrors());
+      alert.error(error.message);
     }
 
-    if (isAuthenticated) {
+    if (isLoggedIn) {
       history.push(redirect);
     }
-  }, [dispatch, error, alert, history, isAuthenticated, redirect]);
+  }, [dispatch, error, alert, history, isLoggedIn, redirect]);
 
   const switchTabs = (e, tab) => {
     if (tab === "login") {

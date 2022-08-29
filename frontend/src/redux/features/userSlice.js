@@ -27,22 +27,37 @@ export const register = createAsyncThunk(
   }
 );
 
+export const updateProfile = createAsyncThunk(
+  "user/profile/update",
+  async (updateData, { rejectWithValue }) => {
+    try {
+      const response = await api.updateProfile(updateData);
+      // console.log(response);
+      return response.data;
+    } catch (error) {
+      console.error(error.message);
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+
 const userSlice = createSlice({
   name: "user",
   initialState: {
-    loading: false,
-    isAuthenticated: false,
     user: {},
+    loading: false,
+    isLoggedIn: false,
+    isUpdated: false,
     error: "",
   },
   reducers: {
     setUser: (state, action) => {
       state.user = action.payload;
-      state.isAuthenticated = true;
+      state.isLoggedIn = true;
     },
     setLogout: (state) => {
       state.user = null;
-      state.isAuthenticated = false;
+      state.isLoggedIn = false;
       localStorage.removeItem("token");
     },
   },
@@ -53,7 +68,7 @@ const userSlice = createSlice({
     },
     [login.fulfilled]: (state, { payload }) => {
       state.loading = false;
-      state.isAuthenticated = true;
+      state.isLoggedIn = true;
       state.user = payload;
       localStorage.setItem("token", JSON.stringify({ ...payload }));
     },
@@ -67,9 +82,23 @@ const userSlice = createSlice({
     [register.fulfilled]: (state, { payload }) => {
       state.loading = false;
       state.user = payload;
-      state.isAuthenticated = true;
+      state.isLoggedIn = true;
     },
     [register.rejected]: (state, { payload }) => {
+      state.loading = false;
+      state.error = payload;
+    },
+    [updateProfile.pending]: (state) => {
+      state.loading = true;
+    },
+    [updateProfile.fulfilled]: (state, { payload }) => {
+      state.loading = false;
+      state.user = payload;
+      localStorage.setItem("token", JSON.stringify({ ...payload }));
+      state.isUpdated = true;
+      state.isLoggedIn = true;
+    },
+    [updateProfile.rejected]: (state, { payload }) => {
       state.loading = false;
       state.error = payload;
     },

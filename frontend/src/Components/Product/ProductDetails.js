@@ -1,14 +1,15 @@
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+} from "@material-ui/core";
 import { Rating } from "@material-ui/lab";
 import React, { useEffect, useState } from "react";
 import { useAlert } from "react-alert";
-// import {
-//   Dialog,
-//   DialogActions,
-//   DialogContent,
-//   DialogTitle,
-//   Button,
-// } from "@material-ui/core";
 import Carousel from "react-material-ui-carousel";
+import ReactStars from "react-rating-stars-component";
 import { useDispatch, useSelector } from "react-redux";
 import { getProductDetails } from "../../redux/features/productSlice";
 import Loader from "../Layout/Loader/Loader";
@@ -19,6 +20,9 @@ const ProductDetails = ({ match }) => {
   const dispatch = useDispatch();
   const alert = useAlert();
   const [quantity, setQuantity] = useState(1);
+  const [rating, setRating] = useState(0);
+  const [comment, setComment] = useState("");
+  const [open, setOpen] = useState(false);
 
   const { productDetails, loading, error } = useSelector(
     (state) => state.products
@@ -34,14 +38,38 @@ const ProductDetails = ({ match }) => {
   };
 
   const addToCartHandler = () => {};
-  const decreaseQuantity = () => {};
-  const increaseQuantity = () => {};
-  const submitReviewToggle = () => {};
+
+  const increaseQuantity = () => {
+    if (productDetails.Stock <= quantity) return;
+
+    const qty = quantity + 1;
+    setQuantity(qty);
+  };
+  const decreaseQuantity = () => {
+    if (1 >= quantity) return;
+
+    const qty = quantity - 1;
+    setQuantity(qty);
+    console.log(qty);
+  };
+  const submitReviewToggle = () => {
+    setOpen(!open);
+  };
+  const reviewSubmitHandler = (e) => {
+    const myForm = new FormData();
+
+    myForm.set("rating", rating);
+    myForm.set("comment", comment);
+    myForm.set("productId", match.params.id);
+
+    // dispatch(newReview(myForm));
+
+    setOpen(false);
+  };
 
   useEffect(() => {
     if (error) {
       alert.error(error);
-      // dispatch(clearErrors());
     }
     dispatch(getProductDetails(match.params.id));
   }, [dispatch, match.params.id, error, alert]);
@@ -78,7 +106,7 @@ const ProductDetails = ({ match }) => {
               </span>
             </div>
             <div className="detailsBlock-3">
-              <h1>{`₹${productDetails?.price}`}</h1>
+              <h1>{`$${productDetails?.price}`}</h1>
               <div className="detailsBlock-3-1">
                 <div className="detailsBlock-3-1-1">
                   <button onClick={decreaseQuantity}>-</button>
@@ -115,36 +143,36 @@ const ProductDetails = ({ match }) => {
             </div>
           </div>
           <h3 className="reviewsHeading">REVIEWS</h3>
-          {/* <Dialog
-        aria-labelledby="simple-dialog-title"
-        open={open}
-        onClose={submitReviewToggle}
-      >
-        <DialogTitle>Submit Review</DialogTitle>
-        <DialogContent className="submitDialog">
-          <ReactStars
-            onChange={(e) => setRating(e.target.value)}
-            value={rating}
-            size="large"
-          />
+          {/* submit review comment */}
+          <Dialog
+            aria-labelledby="simple-dialog-title"
+            open={open}
+            onClose={submitReviewToggle}
+          >
+            <DialogTitle>Submit Review</DialogTitle>
+            <DialogContent className="submitDialog">
+              <ReactStars
+                onChange={(e) => setRating(e.target.value)}
+                value={rating}
+              />
 
-          <textarea
-            className="submitDialogTextArea"
-            cols="30"
-            rows="5"
-            value={comment}
-            onChange={(e) => setComment(e.target.value)}
-          ></textarea>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={submitReviewToggle} color="secondary">
-            Cancel
-          </Button>
-          <Button onClick={reviewSubmitHandler} color="primary">
-            Submit
-          </Button>
-        </DialogActions>
-      </Dialog> */}
+              <textarea
+                className="submitDialogTextArea"
+                cols="30"
+                rows="5"
+                value={comment}
+                onChange={(e) => setComment(e.target.value)}
+              ></textarea>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={submitReviewToggle} color="secondary">
+                Cancel
+              </Button>
+              <Button onClick={reviewSubmitHandler} color="primary">
+                Submit
+              </Button>
+            </DialogActions>
+          </Dialog>
 
           {productDetails?.reviews && productDetails?.reviews[0] ? (
             <div className="reviews">
