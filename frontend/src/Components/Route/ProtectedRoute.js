@@ -1,18 +1,23 @@
 import { useSelector } from "react-redux";
 import { Redirect, Route } from "react-router-dom";
 
-const ProtectedRoute = ({ component: Component, ...rest }) => {
-  const { loading, isLoggedIn } = useSelector((state) => state.user);
+const ProtectedRoute = ({ isAdmin, component: Component, ...rest }) => {
+  const { loading, isLoggedIn, user } = useSelector((state) => state.user);
 
   return (
     <>
-      {!loading && (
+      {loading === false && (
         <Route
           {...rest}
           render={(props) => {
-            if (!isLoggedIn) {
+            if (isLoggedIn === false) {
               return <Redirect to="/login" />;
             }
+
+            if (isAdmin === true && user.role !== "admin") {
+              return <Redirect to="/login" />;
+            }
+
             return <Component {...props} />;
           }}
         />

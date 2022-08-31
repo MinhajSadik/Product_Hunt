@@ -13,6 +13,7 @@ import Search from "./Components/Product/Search";
 import ProtectedRoute from "./Components/Route/ProtectedRoute";
 import LoginSignup from "./Components/User/LoginSignup";
 import Profile from "./Components/User/Profile";
+import UpdatePassword from "./Components/User/UpdatePassword";
 import UpdateProfile from "./Components/User/UpdateProfile";
 import { setUser } from "./redux/features/userSlice";
 
@@ -46,7 +47,12 @@ function App() {
       <Route path="/products/:keyword" component={Products} />
       <Route exact path="/search" component={Search} />
       <ProtectedRoute exact path="/account" component={Profile} />
-      <Route exact path="/profile/update" component={UpdateProfile} />
+      <ProtectedRoute exact path="/profile/update" component={UpdateProfile} />
+      <ProtectedRoute
+        exact
+        path="/password/update"
+        component={UpdatePassword}
+      />
       <Route exact path="/login" component={LoginSignup} />
       <Footer />
     </Router>

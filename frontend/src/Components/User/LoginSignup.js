@@ -1,13 +1,14 @@
 import FaceIcon from "@material-ui/icons/Face";
 import LockOpenIcon from "@material-ui/icons/LockOpen";
 import MailOutlineIcon from "@material-ui/icons/MailOutline";
-import { Fragment, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useAlert } from "react-alert";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { login, register } from "../../redux/features/userSlice";
 // import { login, register } from "../../redux/features/userSlice";
 import Loader from "../Layout/Loader/Loader";
+import MetaData from "../Layout/MetaData";
 import "./LoginSignup.css";
 
 const LoginSignUp = ({ history, location }) => {
@@ -75,6 +76,7 @@ const LoginSignUp = ({ history, location }) => {
   };
 
   const redirect = location.search ? location.search.split("=")[1] : "/account";
+  console.log(location);
 
   useEffect(() => {
     if (error) {
@@ -84,7 +86,7 @@ const LoginSignUp = ({ history, location }) => {
     if (isLoggedIn) {
       history.push(redirect);
     }
-  }, [dispatch, error, alert, history, isLoggedIn, redirect]);
+  }, [error, alert, history, isLoggedIn, redirect]);
 
   const switchTabs = (e, tab) => {
     if (tab === "login") {
@@ -104,11 +106,12 @@ const LoginSignUp = ({ history, location }) => {
   };
 
   return (
-    <Fragment>
+    <>
       {loading ? (
         <Loader />
       ) : (
-        <Fragment>
+        <>
+          <MetaData title="Login Page" />
           <div className="LoginSignUpContainer">
             <div className="LoginSignUpBox">
               <div>
@@ -195,9 +198,9 @@ const LoginSignUp = ({ history, location }) => {
               </form>
             </div>
           </div>
-        </Fragment>
+        </>
       )}
-    </Fragment>
+    </>
   );
 };
 
