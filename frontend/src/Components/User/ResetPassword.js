@@ -1,35 +1,32 @@
 import LockIcon from "@material-ui/icons/Lock";
-import LockOpenIcon from "@material-ui/icons/LockOpen";
 import VpnKeyIcon from "@material-ui/icons/VpnKey";
 import React, { useEffect, useState } from "react";
 import { useAlert } from "react-alert";
 import { useDispatch, useSelector } from "react-redux";
-import { updatePassword } from "../../redux/features/userSlice";
+import { resetPassword } from "../../redux/features/userSlice";
 
 import Loader from "../Layout/Loader/Loader";
 import MetaData from "../Layout/MetaData";
-import "./UpdatePassword.css";
+import "./ResetPassword.css";
 
-const UpdatePassword = ({ history }) => {
+const ResetPassword = ({ history }) => {
   const dispatch = useDispatch();
   const alert = useAlert();
 
-  const { error, isUpdated, loading } = useSelector((state) => state.user);
+  const { error, message, loading } = useSelector((state) => state.user);
 
-  const [oldPassword, setOldPassword] = useState("");
-  const [newPassword, setNewPassword] = useState("");
+  const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
   const updatePasswordSubmit = (e) => {
     e.preventDefault();
 
-    const passwordData = new FormData();
+    const resetData = new FormData();
 
-    passwordData.set("oldPassword", oldPassword);
-    passwordData.set("newPassword", newPassword);
-    passwordData.set("confirmPassword", confirmPassword);
+    resetData.set("password", password);
+    resetData.set("confirmPassword", confirmPassword);
 
-    dispatch(updatePassword(passwordData));
+    dispatch(resetPassword(resetData));
   };
 
   useEffect(() => {
@@ -37,12 +34,11 @@ const UpdatePassword = ({ history }) => {
       alert.error(error);
     }
 
-    if (isUpdated) {
-      alert.success("Password Updated Successfully");
-
-      history.push("/account");
+    if (message) {
+      alert.success(message);
+      history.push("/login");
     }
-  }, [dispatch, error, alert, history, isUpdated]);
+  }, [dispatch, error, alert, history, message]);
 
   return (
     <React.Fragment>
@@ -50,10 +46,10 @@ const UpdatePassword = ({ history }) => {
         <Loader />
       ) : (
         <React.Fragment>
-          <MetaData title="Change Password" />
+          <MetaData title="Reset Password" />
           <div className="updatePasswordContainer">
             <div className="updatePasswordBox">
-              <h2 className="updatePasswordHeading">Update Password</h2>
+              <h2 className="updatePasswordHeading">Reset Password</h2>
 
               <form
                 className="updatePasswordForm"
@@ -63,21 +59,10 @@ const UpdatePassword = ({ history }) => {
                   <VpnKeyIcon />
                   <input
                     type="password"
-                    placeholder="Old Password"
+                    placeholder="Password"
                     required
-                    value={oldPassword}
-                    onChange={(e) => setOldPassword(e.target.value)}
-                  />
-                </div>
-
-                <div className="loginPassword">
-                  <LockOpenIcon />
-                  <input
-                    type="password"
-                    placeholder="New Password"
-                    required
-                    value={newPassword}
-                    onChange={(e) => setNewPassword(e.target.value)}
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
                   />
                 </div>
                 <div className="loginPassword">
@@ -104,4 +89,4 @@ const UpdatePassword = ({ history }) => {
   );
 };
 
-export default UpdatePassword;
+export default ResetPassword;

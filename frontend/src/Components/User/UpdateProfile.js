@@ -60,10 +60,6 @@ const UpdateProfile = ({ history }) => {
       dispatch(setUser(user));
 
       history.push("/account");
-
-      //   dispatch({
-      //     type: UPDATE_PROFILE_RESET,
-      //   });
     }
   }, [dispatch, error, alert, history, isUpdated, user]);
   return (
@@ -86,8 +82,8 @@ const UpdateProfile = ({ history }) => {
                   <FaceIcon />
                   <input
                     type="text"
-                    placeholder="Name"
                     required
+                    placeholder="Name"
                     name="name"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
@@ -109,6 +105,7 @@ const UpdateProfile = ({ history }) => {
                   <img src={avatarPreview} alt="Avatar" />
                   <input
                     type="file"
+                    required
                     name="avatar"
                     accept="image/*"
                     onChange={updateProfileDataChange}

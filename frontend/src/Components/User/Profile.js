@@ -11,7 +11,6 @@ const Profile = ({ history }) => {
   const { user, loading, isLoggedIn } = useSelector((state) => ({
     ...state.user,
   }));
-  console.log("profile", user);
   useEffect(() => {
     if (isLoggedIn === false) {
       history.push("/login");

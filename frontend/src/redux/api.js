@@ -16,13 +16,16 @@ API.interceptors.request.use((req) => {
 export const login = (formData) => API.post(`/api/v1/login`, formData);
 export const register = (formData) => API.post(`/api/v1/register`, formData);
 export const updateProfile = (profileData) =>
-  API.put(`/api/v1/me/update`, profileData);
+  API.put(`/api/v1/profile/update`, profileData);
 
 export const updatePassword = (passwordData) =>
   API.put(`/api/v1/password/update`, passwordData);
 
 export const forgotPassword = (forgotData) =>
-  API.put(`/api/v1/password/forgot`, forgotData);
+  API.post(`/api/v1/password/forgot`, forgotData);
+
+export const resetPassword = (resetData) =>
+  API.put(`/api/v1/password/reset/:token`, resetData);
 
 export const getProducts = (link) => API.get(`/api/v1/products/${link}`);
 

@@ -14,6 +14,7 @@ import ProtectedRoute from "./Components/Route/ProtectedRoute";
 import ForgotPassword from "./Components/User/ForgotPassword";
 import LoginSignup from "./Components/User/LoginSignup";
 import Profile from "./Components/User/Profile";
+import ResetPassword from "./Components/User/ResetPassword";
 import UpdatePassword from "./Components/User/UpdatePassword";
 import UpdateProfile from "./Components/User/UpdateProfile";
 import { setUser } from "./redux/features/userSlice";
@@ -47,15 +48,16 @@ function App() {
       <Route exact path="/products" component={Products} />
       <Route path="/products/:keyword" component={Products} />
       <Route exact path="/search" component={Search} />
+      <Route exact path="/login" component={LoginSignup} />
       <ProtectedRoute exact path="/account" component={Profile} />
       <ProtectedRoute exact path="/update/profile" component={UpdateProfile} />
-      <Route exact path="/forgot/password" component={ForgotPassword} />
       <ProtectedRoute
         exact
         path="/update/password"
         component={UpdatePassword}
       />
-      <Route exact path="/login" component={LoginSignup} />
+      <Route exact path="/forgot/password" component={ForgotPassword} />
+      <Route exact path="/password/reset/:token" component={ResetPassword} />
       <Footer />
     </Router>
   );

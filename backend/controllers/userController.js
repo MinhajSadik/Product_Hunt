@@ -6,6 +6,8 @@ const sendEmail = require("../utils/sendEmail");
 const crypto = require("crypto");
 const cloudinary = require("cloudinary");
 const jwt = require("jsonwebtoken");
+const dotenv = require("dotenv");
+dotenv.config({ path: "backend/config/config.env" });
 
 //Register a User
 exports.registerUser = catchAsyncError(async (req, res, next) => {
@@ -97,9 +99,7 @@ exports.forgotPassword = catchAsyncError(async (req, res, next) => {
   await user.save({ validateBeforeSave: false });
 
   //create reset url
-  const resetPasswordUrl = `${req.protocol}://${req.get(
-    "host"
-  )}/api/v1/password/reset/${resetToken}`;
+  const resetPasswordUrl = `${process.env.FRONTEND_URL}/password/reset/${resetToken}`;
 
   //send email
   const message = `You are receiving this email because you (or someone else) has requested the reset of a password. Please make a PUT request to: \n\n ${resetPasswordUrl}`;
@@ -135,6 +135,7 @@ exports.resetPassword = catchAsyncError(async (req, res, next) => {
     resetPasswordToken,
     resetPasswordExpire: { $gt: Date.now() },
   });
+
   if (!user) {
     return next(
       new ErrorHandler("reset password token is Invalid or has expired", 400)

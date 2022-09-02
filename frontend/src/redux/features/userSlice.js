@@ -31,12 +31,11 @@ export const updateProfile = createAsyncThunk(
   "user/update/profile",
   async (profileData, { rejectWithValue }) => {
     try {
-      const response = await api.updateProfile(profileData);
-      // console.log(response);
-      return response.data;
+      const { data } = await api.updateProfile(profileData);
+      return data;
     } catch (error) {
       console.error(error.message);
-      return rejectWithValue(error.response.data);
+      return rejectWithValue(error.data);
     }
   }
 );
@@ -45,12 +44,37 @@ export const updatePassword = createAsyncThunk(
   "user/update/password",
   async (passwordData, { rejectWithValue }) => {
     try {
-      const response = await api.updatePassword(passwordData);
-      // console.log(response);
-      return response.data;
+      const { data } = await api.updatePassword(passwordData);
+      return data;
     } catch (error) {
       console.error(error.message);
-      return rejectWithValue(error.response.data);
+      return rejectWithValue(error.data);
+    }
+  }
+);
+
+export const forgotPassword = createAsyncThunk(
+  "user/forgot/password",
+  async (forgotData, { rejectWithValue }) => {
+    try {
+      const { data } = await api.forgotPassword(forgotData);
+      return data.message;
+    } catch (error) {
+      console.error(error.message);
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+export const resetPassword = createAsyncThunk(
+  "user/reset/password",
+  async (resetData, { rejectWithValue }) => {
+    try {
+      const { data } = await api.resetPassword(resetData);
+      return data.message;
+    } catch (error) {
+      console.error(error.message);
+      return rejectWithValue(error.message);
     }
   }
 );
@@ -63,6 +87,7 @@ const userSlice = createSlice({
     isLoggedIn: false,
     isUpdated: false,
     error: "",
+    message: "",
   },
   reducers: {
     setUser: (state, action) => {
@@ -129,6 +154,28 @@ const userSlice = createSlice({
       state.isLoggedIn = true;
     },
     [updatePassword.rejected]: (state, { payload }) => {
+      state.loading = false;
+      state.error = payload;
+    },
+    [forgotPassword.pending]: (state) => {
+      state.loading = true;
+    },
+    [forgotPassword.fulfilled]: (state, { payload }) => {
+      state.loading = false;
+      state.message = payload;
+    },
+    [forgotPassword.rejected]: (state, { payload }) => {
+      state.loading = false;
+      state.error = payload;
+    },
+    [resetPassword.pending]: (state) => {
+      state.loading = true;
+    },
+    [resetPassword.fulfilled]: (state, { payload }) => {
+      state.loading = false;
+      state.message = payload;
+    },
+    [resetPassword.rejected]: (state, { payload }) => {
       state.loading = false;
       state.error = payload;
     },
