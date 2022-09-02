@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
+import React from "react";
 import Loader from "../Layout/Loader/Loader";
 import MetaData from "../Layout/MetaData";
 import "./Profile.css";
@@ -17,17 +18,17 @@ const Profile = ({ history }) => {
     }
   }, [history, isLoggedIn]);
   return (
-    <>
+    <React.Fragment>
       {loading ? (
         <Loader />
       ) : (
-        <>
+        <React.Fragment>
           <MetaData title={`${user?.user?.name}'s profile`} />
           <div className="profileContainer">
             <div>
               <h1>My Profile</h1>
               <img src={user.user?.avatar?.url} alt={user?.user?.name} />
-              <Link to="/profile/update">Edit Profile</Link>
+              <Link to="/update/profile">Edit Profile</Link>
             </div>
             <div>
               <div>
@@ -45,13 +46,13 @@ const Profile = ({ history }) => {
 
               <div>
                 <Link to="/orders">My Orders</Link>
-                <Link to="/password/update">Change Password</Link>
+                <Link to="/update/password">Change Password</Link>
               </div>
             </div>
           </div>
-        </>
+        </React.Fragment>
       )}
-    </>
+    </React.Fragment>
   );
 };
 

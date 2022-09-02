@@ -1,9 +1,10 @@
 import LockIcon from "@material-ui/icons/Lock";
 import LockOpenIcon from "@material-ui/icons/LockOpen";
 import VpnKeyIcon from "@material-ui/icons/VpnKey";
-import React, { Fragment, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useAlert } from "react-alert";
 import { useDispatch, useSelector } from "react-redux";
+import { updatePassword } from "../../redux/features/userSlice";
 
 import Loader from "../Layout/Loader/Loader";
 import MetaData from "../Layout/MetaData";
@@ -22,23 +23,22 @@ const UpdatePassword = ({ history }) => {
   const updatePasswordSubmit = (e) => {
     e.preventDefault();
 
-    const myForm = new FormData();
+    const passwordData = new FormData();
 
-    myForm.set("oldPassword", oldPassword);
-    myForm.set("newPassword", newPassword);
-    myForm.set("confirmPassword", confirmPassword);
+    passwordData.set("oldPassword", oldPassword);
+    passwordData.set("newPassword", newPassword);
+    passwordData.set("confirmPassword", confirmPassword);
 
-    // dispatch(updatePassword(myForm));
+    dispatch(updatePassword(passwordData));
   };
 
   useEffect(() => {
     if (error) {
       alert.error(error);
-      //   dispatch(clearErrors());
     }
 
     if (isUpdated) {
-      alert.success("Profile Updated Successfully");
+      alert.success("Password Updated Successfully");
 
       history.push("/account");
 
@@ -49,11 +49,11 @@ const UpdatePassword = ({ history }) => {
   }, [dispatch, error, alert, history, isUpdated]);
 
   return (
-    <Fragment>
+    <React.Fragment>
       {loading ? (
         <Loader />
       ) : (
-        <Fragment>
+        <React.Fragment>
           <MetaData title="Change Password" />
           <div className="updatePasswordContainer">
             <div className="updatePasswordBox">
@@ -102,9 +102,9 @@ const UpdatePassword = ({ history }) => {
               </form>
             </div>
           </div>
-        </Fragment>
+        </React.Fragment>
       )}
-    </Fragment>
+    </React.Fragment>
   );
 };
 

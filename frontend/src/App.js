@@ -11,6 +11,7 @@ import ProductDetails from "./Components/Product/ProductDetails";
 import Products from "./Components/Product/Products";
 import Search from "./Components/Product/Search";
 import ProtectedRoute from "./Components/Route/ProtectedRoute";
+import ForgotPassword from "./Components/User/ForgotPassword";
 import LoginSignup from "./Components/User/LoginSignup";
 import Profile from "./Components/User/Profile";
 import UpdatePassword from "./Components/User/UpdatePassword";
@@ -47,10 +48,11 @@ function App() {
       <Route path="/products/:keyword" component={Products} />
       <Route exact path="/search" component={Search} />
       <ProtectedRoute exact path="/account" component={Profile} />
-      <ProtectedRoute exact path="/profile/update" component={UpdateProfile} />
+      <ProtectedRoute exact path="/update/profile" component={UpdateProfile} />
+      <Route exact path="/forgot/password" component={ForgotPassword} />
       <ProtectedRoute
         exact
-        path="/password/update"
+        path="/update/password"
         component={UpdatePassword}
       />
       <Route exact path="/login" component={LoginSignup} />

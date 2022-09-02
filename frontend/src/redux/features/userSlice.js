@@ -28,10 +28,24 @@ export const register = createAsyncThunk(
 );
 
 export const updateProfile = createAsyncThunk(
-  "user/profile/update",
-  async (updateData, { rejectWithValue }) => {
+  "user/update/profile",
+  async (profileData, { rejectWithValue }) => {
     try {
-      const response = await api.updateProfile(updateData);
+      const response = await api.updateProfile(profileData);
+      // console.log(response);
+      return response.data;
+    } catch (error) {
+      console.error(error.message);
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+
+export const updatePassword = createAsyncThunk(
+  "user/update/password",
+  async (passwordData, { rejectWithValue }) => {
+    try {
+      const response = await api.updatePassword(passwordData);
       // console.log(response);
       return response.data;
     } catch (error) {
@@ -101,6 +115,20 @@ const userSlice = createSlice({
       state.isLoggedIn = true;
     },
     [updateProfile.rejected]: (state, { payload }) => {
+      state.loading = false;
+      state.error = payload;
+    },
+    [updatePassword.pending]: (state) => {
+      state.loading = true;
+    },
+    [updatePassword.fulfilled]: (state, { payload }) => {
+      state.loading = false;
+      state.user = payload;
+      localStorage.setItem("token", JSON.stringify({ ...payload }));
+      state.isUpdated = true;
+      state.isLoggedIn = true;
+    },
+    [updatePassword.rejected]: (state, { payload }) => {
       state.loading = false;
       state.error = payload;
     },

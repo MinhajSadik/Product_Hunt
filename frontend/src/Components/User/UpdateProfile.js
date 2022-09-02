@@ -22,13 +22,13 @@ const UpdateProfile = ({ history }) => {
 
   const updateProfileSubmit = (e) => {
     e.preventDefault();
-    const updateData = new FormData();
+    const profileData = new FormData();
 
-    updateData.set("name", name);
-    updateData.set("email", email);
-    updateData.set("avatar", avatar);
+    profileData.set("name", name);
+    profileData.set("email", email);
+    profileData.set("avatar", avatar);
 
-    dispatch(updateProfile(updateData));
+    dispatch(updateProfile(profileData));
   };
 
   const updateProfileDataChange = (e) => {
@@ -67,11 +67,11 @@ const UpdateProfile = ({ history }) => {
     }
   }, [dispatch, error, alert, history, isUpdated, user]);
   return (
-    <>
+    <React.Fragment>
       {loading ? (
         <Loader />
       ) : (
-        <>
+        <React.Fragment>
           <MetaData title="Update Profile" />
           <div className="updateProfileContainer">
             <div className="updateProfileBox">
@@ -122,9 +122,9 @@ const UpdateProfile = ({ history }) => {
               </form>
             </div>
           </div>
-        </>
+        </React.Fragment>
       )}
-    </>
+    </React.Fragment>
   );
 };
 

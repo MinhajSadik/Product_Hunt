@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { login, register } from "../../redux/features/userSlice";
 // import { login, register } from "../../redux/features/userSlice";
+import React from "react";
 import Loader from "../Layout/Loader/Loader";
 import MetaData from "../Layout/MetaData";
 import "./LoginSignup.css";
@@ -106,11 +107,11 @@ const LoginSignUp = ({ history, location }) => {
   };
 
   return (
-    <>
+    <React.Fragment>
       {loading ? (
         <Loader />
       ) : (
-        <>
+        <React.Fragment>
           <MetaData title="Login Page" />
           <div className="LoginSignUpContainer">
             <div className="LoginSignUpBox">
@@ -142,7 +143,7 @@ const LoginSignUp = ({ history, location }) => {
                     onChange={(e) => setLoginPassword(e.target.value)}
                   />
                 </div>
-                <Link to="/password/forgot">Forget Password ?</Link>
+                <Link to="/forgot/password">Forget Password ?</Link>
                 <input type="submit" value="Login" className="loginBtn" />
               </form>
               <form
@@ -198,9 +199,9 @@ const LoginSignUp = ({ history, location }) => {
               </form>
             </div>
           </div>
-        </>
+        </React.Fragment>
       )}
-    </>
+    </React.Fragment>
   );
 };
 

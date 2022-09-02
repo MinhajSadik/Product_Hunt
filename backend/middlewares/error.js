@@ -28,6 +28,17 @@ module.exports = (err, req, res, next) => {
     err = new ErrorHandler(message, 404);
   }
 
+  // not found error
+  if (err.name === "NotFoundError") {
+    const message = `Could not found expected route: ${err.message}`;
+    err = new ErrorHandler(message, 404);
+  }
+
+  // validator error
+  if (err.name === "ValidatorError") {
+    const message = `Validate your expected path: ${err.message}`;
+    err = new ErrorHandler(message, 404);
+  }
   res.status(err.statusCode).json({
     success: false,
     // error: err.stack,
