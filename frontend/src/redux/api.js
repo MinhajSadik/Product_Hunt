@@ -24,8 +24,8 @@ export const updatePassword = (passwordData) =>
 export const forgotPassword = (forgotData) =>
   API.post(`/api/v1/password/forgot`, forgotData);
 
-export const resetPassword = (resetData) =>
-  API.put(`/api/v1/password/reset/:token`, resetData);
+export const resetPassword = (resetData, token) =>
+  API.put(`/api/v1/password/reset/${token}`, resetData);
 
 export const getProducts = (link) => API.get(`/api/v1/products/${link}`);
 

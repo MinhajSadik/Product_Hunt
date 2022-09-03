@@ -68,9 +68,9 @@ export const forgotPassword = createAsyncThunk(
 
 export const resetPassword = createAsyncThunk(
   "user/reset/password",
-  async (resetData, { rejectWithValue }) => {
+  async ({ token, resetData }, { rejectWithValue }) => {
     try {
-      const { data } = await api.resetPassword(resetData);
+      const { data } = await api.resetPassword(resetData, token);
       return data.message;
     } catch (error) {
       console.error(error.message);

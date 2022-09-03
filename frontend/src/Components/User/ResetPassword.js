@@ -9,7 +9,7 @@ import Loader from "../Layout/Loader/Loader";
 import MetaData from "../Layout/MetaData";
 import "./ResetPassword.css";
 
-const ResetPassword = ({ history }) => {
+const ResetPassword = ({ history, match }) => {
   const dispatch = useDispatch();
   const alert = useAlert();
 
@@ -20,13 +20,15 @@ const ResetPassword = ({ history }) => {
 
   const updatePasswordSubmit = (e) => {
     e.preventDefault();
+    const token = match.params.token;
 
     const resetData = new FormData();
 
     resetData.set("password", password);
     resetData.set("confirmPassword", confirmPassword);
 
-    dispatch(resetPassword(resetData));
+    dispatch(resetPassword({ token, resetData }));
+    history.push("/login");
   };
 
   useEffect(() => {
@@ -36,9 +38,8 @@ const ResetPassword = ({ history }) => {
 
     if (message) {
       alert.success(message);
-      history.push("/login");
     }
-  }, [dispatch, error, alert, history, message]);
+  }, [dispatch, error, alert, message]);
 
   return (
     <React.Fragment>
