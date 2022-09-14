@@ -1,8 +1,7 @@
 import React, { useEffect } from "react";
 import { useAlert } from "react-alert";
-import { CgMouse } from "react-icons/all";
+import { CgMouse } from "react-icons/cg";
 import { useDispatch, useSelector } from "react-redux";
-// import { clearErrors, getProduct } from "../../actions/productAction";
 import { getProducts } from "../../redux/features/productSlice";
 import Loader from "../Layout/Loader/Loader";
 import MetaData from "../Layout/MetaData";
