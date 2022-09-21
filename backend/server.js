@@ -1,11 +1,8 @@
-const app = require("./app");
 const dotenv = require("dotenv");
 const cloudinary = require("cloudinary");
 const connectDatabase = require("./config/database");
 
 dotenv.config({ path: "./config/config.env" });
-
-console.log(process.env.DB_URI_PROD);
 
 // handling uncaught exception
 process.on("uncaughtException", (err) => {
@@ -22,6 +19,7 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_SECRET,
 });
 
+const app = require("./app");
 const PORT = process.env.PORT || 5000;
 
 app.all("/", (req, res) => {
