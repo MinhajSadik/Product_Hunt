@@ -7,7 +7,7 @@ const crypto = require("crypto");
 const cloudinary = require("cloudinary");
 const jwt = require("jsonwebtoken");
 const dotenv = require("dotenv");
-dotenv.config({ path: "backend/config/config.env" });
+dotenv.config({ path: "./config/config.env" });
 
 //Register a User
 exports.registerUser = catchAsyncError(async (req, res, next) => {
