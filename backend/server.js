@@ -27,7 +27,7 @@ app.all("/", (req, res) => {
 });
 
 const server = app.listen(PORT, () => {
-  console.log(`server listening on port:${PORT}`);
+  console.log(`server running on port:${PORT}`);
 });
 
 // unhandled promise rejection

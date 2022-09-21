@@ -15,7 +15,7 @@ const connectDatabase = () => {
   };
   mongoose
     .connect(DB_URL, options)
-    .then(() => console.log("Database connected"))
+    .then(() => console.log("Database connected..."))
     .catch((error) => console.error(error.message));
 };
 
