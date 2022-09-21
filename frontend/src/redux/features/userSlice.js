@@ -9,7 +9,7 @@ export const login = createAsyncThunk(
       return response.data;
     } catch (error) {
       console.error(error.message);
-      return rejectWithValue(error.response.data);
+      return rejectWithValue(error.response.data.message);
     }
   }
 );
@@ -22,7 +22,7 @@ export const register = createAsyncThunk(
       return response.data;
     } catch (error) {
       console.error(error.message);
-      return rejectWithValue(error.response.data);
+      return rejectWithValue(error.response.data.message);
     }
   }
 );
@@ -35,7 +35,7 @@ export const updateProfile = createAsyncThunk(
       return data;
     } catch (error) {
       console.error(error.message);
-      return rejectWithValue(error.data);
+      return rejectWithValue(error.response.data.message);
     }
   }
 );
@@ -48,7 +48,7 @@ export const updatePassword = createAsyncThunk(
       return data;
     } catch (error) {
       console.error(error.message);
-      return rejectWithValue(error.data);
+      return rejectWithValue(error.response.data.message);
     }
   }
 );

@@ -15,11 +15,10 @@ export const getProducts = createAsyncThunk(
         link = `?keyword=${keyword}&page=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}&category=${category}&ratings[gte]=${ratings}`;
       }
       const { data } = await api.getProducts(link);
-      // console.log("data", data);
       return data;
     } catch (error) {
       console.error(error.message);
-      return rejectWithValue(error.response.data);
+      return rejectWithValue(error.response.data.message);
     }
   }
 );
@@ -33,7 +32,7 @@ export const getProductDetails = createAsyncThunk(
       return data;
     } catch (error) {
       console.error(error.message);
-      return rejectWithValue(error.response.data);
+      return rejectWithValue(error.response.data.message);
     }
   }
 );

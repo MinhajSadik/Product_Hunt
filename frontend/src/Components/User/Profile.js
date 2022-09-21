@@ -11,11 +11,13 @@ const Profile = ({ history }) => {
   const { user, loading, isLoggedIn } = useSelector((state) => ({
     ...state.user,
   }));
+
   useEffect(() => {
     if (isLoggedIn === false) {
       history.push("/login");
     }
   }, [history, isLoggedIn]);
+
   return (
     <React.Fragment>
       {loading ? (
