@@ -2,7 +2,7 @@ const dotenv = require("dotenv");
 const cloudinary = require("cloudinary");
 const connectDatabase = require("./config/database");
 
-dotenv.config({ path: "./config/config.env" });
+dotenv.config({ path: "./backend/config/config.env" });
 
 // handling uncaught exception
 process.on("uncaughtException", (err) => {
