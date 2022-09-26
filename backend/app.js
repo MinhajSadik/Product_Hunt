@@ -7,18 +7,11 @@ const bodyParser = require("body-parser");
 const fileUpload = require("express-fileupload");
 const path = require("path");
 
-// const corsBody = {
-//   origin: "http://localhost:3000",
-//   crossOrigin: true,
-//   withCredentials: true,
-//   headers: { "Access-Control-Allow-Origin": "*" },
-// };
-
 app.use(express.json());
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(fileUpload());
-app.use(cors({ origin: "http://localhost:3000", credentials: true }));
+app.use(cors({ origin: "http://localhost:3000" }));
 
 const product = require("./routes/productRoute");
 const user = require("./routes/userRoute");
