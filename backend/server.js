@@ -23,7 +23,7 @@ const app = require("./app");
 const PORT = process.env.PORT || 5000;
 
 app.all("/", (req, res) => {
-  res.send("Product Hunt API Viewers");
+  res.json("Product Hunt API Viewers");
 });
 
 const server = app.listen(PORT, () => {
