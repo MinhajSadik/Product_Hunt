@@ -10,7 +10,7 @@ const { REACT_APP_DEV_API, REACT_APP_PROD_API } = process.env;
 console.log(REACT_APP_DEV_API, REACT_APP_PROD_API, devEnv);
 
 const API = axios.create({
-  baseURL: REACT_APP_PROD_API,
+  baseURL: REACT_APP_DEV_API,
 });
 
 //get token
