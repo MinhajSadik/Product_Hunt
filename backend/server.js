@@ -1,6 +1,7 @@
 const dotenv = require("dotenv");
 const cloudinary = require("cloudinary");
 const connectDatabase = require("./config/database");
+const app = require("./app");
 
 dotenv.config({ path: "./backend/config/config.env" });
 
@@ -19,7 +20,6 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_SECRET,
 });
 
-const app = require("./app");
 const PORT = process.env.PORT || 5000;
 
 app.all("/", (req, res) => {
