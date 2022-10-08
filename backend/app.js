@@ -11,7 +11,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(fileUpload());
-app.use(cors({ origin: "" }));
+app.use(cors({ origin: "https://product-hunt-minhajsadik.vercel.app" }));
 
 const product = require("./routes/productRoute");
 const user = require("./routes/userRoute");
