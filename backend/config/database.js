@@ -4,10 +4,12 @@ const dotenv = require("dotenv");
 dotenv.config({ path: "./config.env" });
 
 const connectDatabase = () => {
-  const DB_URL =
-    process.env.NODE_ENV === "production"
-      ? process.env.DB_URI_PROD
-      : process.env.DB_URI_DEV;
+  // const DB_URL =
+  //   process.env.NODE_ENV === "production"
+  //     ? process.env.DB_URI_PROD
+  //     : process.env.DB_URI_DEV;
+
+  const DB_URL = process.env.DB_URI_PROD;
 
   const options = {
     useNewUrlParser: true,
