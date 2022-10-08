@@ -39,7 +39,7 @@ const Home = ({ match }) => {
               </button>
             </a>
           </div>
-          <div className="homeHeading">Featured Products</div>
+          <div className="homeHeading">Featured Products!</div>
           <div className="container" id="container">
             {products &&
               products.map((product) => (

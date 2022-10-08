@@ -23,7 +23,7 @@ cloudinary.config({
 const PORT = process.env.PORT || 5000;
 
 app.all("/", (req, res) => {
-  res.json("Product Hunt API Viewers");
+  res.json("Product Hunt API Viewers!");
 });
 
 const server = app.listen(PORT, () => {
