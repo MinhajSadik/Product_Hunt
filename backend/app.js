@@ -8,8 +8,8 @@ const fileUpload = require("express-fileupload");
 const path = require("path");
 
 const options = {
-  // origin: ["https://product-hunt-minhajsadik.vercel.app"],
-  origin: ["http://localhost:3000"],
+  origin: ["https://product-hunt-minhajsadik.vercel.app"],
+  // origin: ["http://localhost:3000"],
   credentials: true,
 };
 
