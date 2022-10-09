@@ -7,11 +7,16 @@ const bodyParser = require("body-parser");
 const fileUpload = require("express-fileupload");
 const path = require("path");
 
+const options = {
+  origin: ["https://product-hunt-minhajsadik.vercel.app"],
+  credentials: true,
+};
+
 app.use(express.json());
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(fileUpload());
-app.use(cors({ origin: "https://product-hunt-minhajsadik.vercel.app" }));
+app.use(cors(options));
 
 const product = require("./routes/productRoute");
 const user = require("./routes/userRoute");

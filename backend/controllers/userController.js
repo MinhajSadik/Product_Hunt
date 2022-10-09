@@ -30,14 +30,17 @@ exports.registerUser = catchAsyncError(async (req, res, next) => {
   });
 
   // sendToken(user, 201, res);
-  const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+  const accessToken = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
     expiresIn: process.env.JWT_COOKIE_EXPIRES_IN,
   });
-  res.status(201).json({
-    status: true,
-    token,
-    user,
+
+  res.cookie("accessToken", accessToken, {
+    maxAge: 1000 * 60 * 60 * 24 * 30,
+    httpOnly: true,
+    secure: true,
   });
+
+  res.status(201).json(user);
 });
 
 //Login a User
@@ -61,26 +64,30 @@ exports.loginUser = catchAsyncError(async (req, res, next) => {
   }
 
   //4. If everything is ok, send token to client
-  const token = jwt.sign(
+  const accessToken = jwt.sign(
     { id: user._id, email: user.email },
     process.env.JWT_SECRET,
     {
       expiresIn: process.env.JWT_COOKIE_EXPIRES_IN,
     }
   );
-  res.status(200).json({
-    status: true,
-    token,
-    user,
+
+  res.cookie("accessToken", accessToken, {
+    maxAge: 1000 * 60 * 60 * 24 * 30,
+    httpOnly: true,
+    secure: true,
   });
+
+  res.status(200).json(user);
 });
 
 //User Logout
 exports.logout = catchAsyncError(async (req, res, next) => {
-  res.cookie("token", null, {
+  res.cookie("accessToken", null, {
     expires: new Date(Date.now() + 10 * 1000),
     httpOnly: true,
   });
+
   res.status(200).json({
     success: true,
     message: "User logged out successfully",

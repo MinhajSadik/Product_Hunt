@@ -4,17 +4,32 @@ const jwt = require("jsonwebtoken");
 const User = require("../models/userModel");
 
 exports.isAuthenticatedUser = catchAsyncError(async (req, res, next) => {
-  const token = req.headers.authorization.split(" ")[1];
+  const { accessToken } = req.cookies;
 
-  if (!token) {
-    return next(new ErrorHandler("Please Login to access this resource", 401));
+  console.log(accessToken);
+  if (!accessToken) {
+    throw new Error("Invalid Token!");
   }
 
-  const decodedData = jwt.verify(token, process.env.JWT_SECRET);
+  const userData = jwt.verify(accessToken, process.env.JWT_SECRET);
 
-  req.user = await User.findById(decodedData.id);
+  if (!userData) throw new Error("No User Found");
+
+  req.user = userData;
 
   next();
+
+  // const token = req.headers.authorization.split(" ")[1];
+
+  // if (!token) {
+  //   return next(new ErrorHandler("Please Login to access this resource", 401));
+  // }
+
+  // const decodedData = jwt.verify(token, process.env.JWT_SECRET);
+
+  // req.user = await User.findById(decodedData.id);
+
+  // next();
 });
 
 exports.authorizeRoles = (...roles) => {

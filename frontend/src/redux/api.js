@@ -11,19 +11,24 @@ console.log(REACT_APP_DEV_API, REACT_APP_PROD_API, devEnv);
 
 const API = axios.create({
   baseURL: REACT_APP_PROD_API,
+  withCredentials: true,
+  headers: {
+    "Content-type": "application/json",
+    Accept: "application/json",
+  },
 });
 
 //get token
-API.interceptors.request.use((req) => {
-  const token = localStorage.getItem("token");
-  if (token) {
-    req.headers.Authorization = `Bearer ${
-      JSON.parse(localStorage.getItem("token")).token
-    }`;
-  }
-  // console.log(req);
-  return req;
-});
+// API.interceptors.request.use((req) => {
+//   const token = localStorage.getItem("token");
+//   if (token) {
+//     req.headers.Authorization = `Bearer ${
+//       JSON.parse(localStorage.getItem("token")).token
+//     }`;
+//   }
+//   // console.log(req);
+//   return req;
+// });
 
 export const login = (formData) => API.post(`/api/v1/login`, formData);
 export const register = (formData) => API.post(`/api/v1/register`, formData);
