@@ -10,11 +10,12 @@ const { REACT_APP_DEV_API, REACT_APP_PROD_API } = process.env;
 console.log(REACT_APP_DEV_API, REACT_APP_PROD_API, devEnv);
 
 const API = axios.create({
-  baseURL: REACT_APP_PROD_API,
+  baseURL: REACT_APP_DEV_API,
   withCredentials: true,
   headers: {
     "Content-type": "application/json",
-    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Origin":
+      "https://product-hunt-minhajsadik.vercel.app",
     Accept: "application/json",
   },
 });

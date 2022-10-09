@@ -3,7 +3,7 @@ const cloudinary = require("cloudinary");
 const connectDatabase = require("./config/database");
 const app = require("./app");
 
-dotenv.config({ path: "./backend/config/config.env" });
+dotenv.config({ path: "./config/config.env" });
 
 // handling uncaught exception
 process.on("uncaughtException", (err) => {
@@ -23,7 +23,7 @@ cloudinary.config({
 const PORT = process.env.PORT || 5000;
 
 app.all("/", (req, res) => {
-  res.json("Product Hunt API Viewers!");
+  res.json("Product Hunt API Viewers");
 });
 
 const server = app.listen(PORT, () => {
