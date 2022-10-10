@@ -6,6 +6,7 @@ const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 const fileUpload = require("express-fileupload");
 const path = require("path");
+const { urlencoded } = require("express");
 
 const corsOptions = {
   origin: "https://product-hunt-lilac.vercel.app",
@@ -13,10 +14,9 @@ const corsOptions = {
 };
 
 app.use(express.json());
-app.use(cookieParser());
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(fileUpload());
 app.use(cors(corsOptions));
+app.use(cookieParser());
+app.use(fileUpload());
 
 const product = require("./routes/productRoute");
 const user = require("./routes/userRoute");
