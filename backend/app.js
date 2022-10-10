@@ -9,7 +9,7 @@ const path = require("path");
 const { urlencoded } = require("express");
 
 const corsOptions = {
-  origin: "https://product-hunt-minhajsadik.vercel.app",
+  origin: "http://localhost:3000",
   credentials: true,
 };
 
