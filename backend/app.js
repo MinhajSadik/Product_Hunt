@@ -8,7 +8,7 @@ const fileUpload = require("express-fileupload");
 const path = require("path");
 
 const corsOptions = {
-  origin: "https://product-hunt-minhajsadik.vercel.app",
+  origin: "https://product-hunt-lilac.vercel.app",
   credentials: true,
 };
 

@@ -22,7 +22,7 @@ import { setUser } from "./redux/features/userSlice";
 function App() {
   const dispatch = useDispatch();
   const { user, isLoggedIn } = useSelector((state) => ({ ...state.user }));
-  // console.log(user);
+  console.log(user);
   const userToken = JSON.parse(localStorage.getItem("token"));
 
   useEffect(() => {
