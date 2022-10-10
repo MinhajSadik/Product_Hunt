@@ -10,7 +10,6 @@ const path = require("path");
 const corsOptions = {
   origin: "https://product-hunt-minhajsadik.vercel.app",
   credentials: true,
-  // optionSuccessStatus: 200,
 };
 
 app.use(express.json());
