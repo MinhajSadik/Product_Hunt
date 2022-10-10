@@ -8,9 +8,9 @@ const fileUpload = require("express-fileupload");
 const path = require("path");
 
 const corsOptions = {
-  origin: "*",
+  origin: "https://product-hunt-minhajsadik.vercel.app/",
   credentials: true,
-  optionSuccessStatus: 200,
+  // optionSuccessStatus: 200,
 };
 
 app.use(express.json());
