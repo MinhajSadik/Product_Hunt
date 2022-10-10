@@ -10,6 +10,7 @@ const fileUpload = require("express-fileupload");
 
 const corsOptions = {
   origin: "https://product-hunt-minhajsadik.vercel.app",
+  // origin: "http://localhost:3000",
   credentials: true,
 };
 

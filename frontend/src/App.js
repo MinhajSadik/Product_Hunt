@@ -43,11 +43,11 @@ function App() {
     <Router>
       <Header />
       {isLoggedIn && <UserOptions user={user} />}
-      <Route exact path="/" component={Home} />
-      <Route exact path="/product/:id" component={ProductDetails} />
-      <Route exact path="/products" component={Products} />
-      <Route path="/products/:keyword" component={Products} />
-      <Route exact path="/search" component={Search} />
+      <ProtectedRoute exact path="/" component={Home} />
+      <ProtectedRoute exact path="/product/:id" component={ProductDetails} />
+      <ProtectedRoute exact path="/products" component={Products} />
+      <ProtectedRoute path="/products/:keyword" component={Products} />
+      <ProtectedRoute exact path="/search" component={Search} />
       <Route exact path="/login" component={LoginSignup} />
       <ProtectedRoute exact path="/account" component={Profile} />
       <ProtectedRoute exact path="/update/profile" component={UpdateProfile} />
