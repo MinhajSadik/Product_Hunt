@@ -7,17 +7,17 @@ const bodyParser = require("body-parser");
 const fileUpload = require("express-fileupload");
 const path = require("path");
 
-const options = {
-  origin: ["https://product-hunt-minhajsadik.vercel.app"],
-  // origin: ["http://localhost:3000"],
+const corsOptions = {
+  origin: "*",
   credentials: true,
+  optionSuccessStatus: 200,
 };
 
 app.use(express.json());
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(fileUpload());
-app.use(cors(options));
+app.use(cors(corsOptions));
 
 const product = require("./routes/productRoute");
 const user = require("./routes/userRoute");
