@@ -14,8 +14,6 @@ const API = axios.create({
   withCredentials: true,
   headers: {
     "Content-type": "application/json",
-    "Access-Control-Allow-Origin":
-      "https://product-hunt-minhajsadik.vercel.app",
     Accept: "application/json",
   },
 });
