@@ -3,10 +3,10 @@ const errorMiddleware = require("./middlewares/error");
 const cors = require("cors");
 const app = express();
 const cookieParser = require("cookie-parser");
-const bodyParser = require("body-parser");
+// const bodyParser = require("body-parser");
 const fileUpload = require("express-fileupload");
-const path = require("path");
-const { urlencoded } = require("express");
+// const path = require("path");
+// const { urlencoded } = require("express");
 
 const corsOptions = {
   origin: "http://localhost:3000",
